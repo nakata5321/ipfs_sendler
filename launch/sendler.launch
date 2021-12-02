@@ -1,0 +1,7 @@
+<launch>
+	<arg name="dir_path" default="$(find ipfs_sendler)" />
+    <node  name="ipfs_sendler" pkg="ipfs_sendler" type="main.py" output="screen">
+        <param name="dir_path" value="$(arg dir_path)" />
+        <param name="config" textfile="$(arg dir_path)/config/config.yaml" />
+    </node>
+</launch>

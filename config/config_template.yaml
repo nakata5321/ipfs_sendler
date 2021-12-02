@@ -1,0 +1,9 @@
+general:
+  gaka-chu_frontend: "" # True - if we need to save this qr code to gaka-chu front-end folder
+pinata:
+  pinata_api: ""
+  pinata_secret_api: ""
+yourls:
+  server: "" #visit yourls.org for more info
+  username: ""
+  password: ""

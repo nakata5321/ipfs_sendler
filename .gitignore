@@ -1,0 +1,5 @@
+# ignore config file with data
+config/config.yaml
+
+# don't save qr image
+misc/qr.png
