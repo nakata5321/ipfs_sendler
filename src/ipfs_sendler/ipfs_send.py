@@ -4,7 +4,6 @@
 import rospy
 import ipfshttpclient
 from pinatapy import PinataPy
-from ipfs_sendler.url_generator import create_url
 from ipfs_sendler.url_generator import update_url
 
 
@@ -27,8 +26,10 @@ def _pin_to_pinata(filename: str, config: dict) -> None:
         rospy.logwarn("File sent")
 
 
-def send(filename: str, config: dict) -> str:
+def send(filename: str, key: str, config: dict) -> None:
     """
+    :param key: shorturl keyword. More on yourls.org. E.g. url.today/6b. 6b is a keyword
+    :type key: str
     :param filename: full name of a recorded video
     :type filename: str
     :param config: dictionary containing all the configurations
@@ -43,9 +44,8 @@ def send(filename: str, config: dict) -> str:
         hash = res["Hash"]  # get its hash of form Qm....
         rospy.loginfo("Published to IPFS")
         rospy.logdebug("Published to IPFS, hash: " + hash)
-        keyword, link = create_url(config)
         update_url(
-            keyword, hash, config
+            key, hash, config
         )  # after publishing file in ipfs locally, which is pretty fast, update
         # the link on the qr code so that it redirects now to the gateway with a published file.
     except Exception as e:
@@ -58,4 +58,3 @@ def send(filename: str, config: dict) -> str:
         rospy.logdebug("Updating URL")
     except Exception as e:
         rospy.logerr("Error while pinning to pinata. Error: ", e)
-    return link

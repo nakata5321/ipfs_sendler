@@ -5,7 +5,7 @@ from PIL import Image
 from shutil import copyfile
 
 
-def create_qr(dirname: str, link: str, config: dict = None) -> str:
+def create_qr(dirname: str, link: str, config: dict) -> str:
     """
     :param dirname: path to the project ending with .../ipfs_sendler
     :type dirname: str
@@ -47,10 +47,10 @@ def create_qr(dirname: str, link: str, config: dict = None) -> str:
     # save image to gaka-chu frontend if needed
 
     if config["general"]["gaka-chu_frontend"] == "enable":
-        rospy.logdebug("save image to gaka-chu frontend")
+        rospy.logdebug("save image to gaka-chu backend")
         rospack = RosPack()
         dirname = rospack.get_path("gakachu-backend")
-        picture_path = dirname + "/dist/assets/static/result.png"
+        picture_path = dirname + "/dist/assets/static/qr.png"
         copyfile(qrpic, picture_path)
 
     rospy.loginfo("qr generated")
